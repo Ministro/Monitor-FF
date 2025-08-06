@@ -4,6 +4,11 @@ from bs4 import BeautifulSoup
 import json
 import os
 import time
+import warnings
+from bs4 import XMLParsedAsHTMLWarning
+
+# Ignorar aviso sobre XML sendo interpretado como HTML
+warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 
 # Constantes
 URL = "https://dl.dir.freefiremobile.com/common/OB50/BR/"
