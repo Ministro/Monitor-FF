@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-import os
 import time
 import warnings
 from bs4 import XMLParsedAsHTMLWarning
@@ -10,8 +9,10 @@ warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 
 URL = "https://dl.dir.freefiremobile.com/common/OB50/BR/"
 CACHE_FILE = "cache.json"
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
+# Coloque aqui seu token e chat ID fixos
+TELEGRAM_TOKEN = "7496271293:AAEnc7H3_GeGAY3NhTmUehLuAn-SEISc8B0"
+TELEGRAM_CHAT_ID = "-1002558895285"
 
 print(f"[INFO] TOKEN: {'OK' if TELEGRAM_TOKEN else 'MISSING'} | CHAT_ID: {TELEGRAM_CHAT_ID}")
 
@@ -65,11 +66,9 @@ def monitor():
 
     if current_files:
         print("[INFO] Enviando arquivos detectados...")
-        # Envia mensagem geral com todos os arquivos
         msg = "📦 *Arquivos detectados:*\n" + "\n".join(URL + x for x in current_files)
         send_telegram_message(msg)
 
-        # Envia fotos separadas para arquivos .png e .jpg
         for arquivo in current_files:
             if arquivo.lower().endswith((".png", ".jpg", ".jpeg")):
                 photo_url = URL + arquivo
@@ -81,7 +80,7 @@ def monitor():
 
 if __name__ == "__main__":
     print("[INFO] Monitoramento iniciado!")
-    monitor()  # Envia na primeira execução
+    monitor()
     while True:
-        time.sleep(300)  # 5 minutos
+        time.sleep(300)
         monitor()
