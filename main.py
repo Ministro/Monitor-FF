@@ -51,8 +51,7 @@ def monitor():
 
     if current_files:
         print("[INFO] Enviando lista de arquivos detectados...")
-        msg = "📦 *Arquivos detectados:*
-" + "\n".join(URL + x for x in current_files)
+        msg = "📦 *Arquivos detectados:*\n" + "\n".join(URL + x for x in current_files)
         send_telegram(msg)
 
     with open(CACHE_FILE, "w") as f:
@@ -61,7 +60,4 @@ def monitor():
 
 if __name__ == "__main__":
     print("[INFO] Monitoramento iniciado!")
-    monitor()  # Envia na primeira execução
-    while True:
-        time.sleep(300)  # 5 minutos
-        monitor()
+    monitor()  # Envia
