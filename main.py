@@ -40,16 +40,9 @@ def send_telegram(text):
 def monitor():
     current_files = get_file_list()
 
-    if os.path.exists(CACHE_FILE):
-        with open(CACHE_FILE, "r") as f:
-            old_files = json.load(f)
-    else:
-        old_files = []
-
-    novos = list(set(current_files) - set(old_files))
-
-    if novos:
-        msg = "📦 *Novos arquivos adicionados:*\n" + "\n".join(URL + x for x in novos)
+    # ENVIA TODOS OS ARQUIVOS ATUAIS SEM COMPARAR
+    if current_files:
+        msg = "📦 *Arquivos detectados:*\n" + "\n".join(URL + x for x in current_files)
         send_telegram(msg)
 
     with open(CACHE_FILE, "w") as f:
