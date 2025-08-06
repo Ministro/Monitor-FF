@@ -26,7 +26,7 @@ def send_telegram(text):
     try:
         requests.post(
             f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
-            data={"chat_id": TELEGRAM_CHAT_ID, "text": text}
+            data={"chat_id": TELEGRAM_CHAT_ID, "text": text, "parse_mode": "Markdown"}
         )
     except Exception as e:
         print("Erro ao enviar Telegram:", e)
@@ -44,8 +44,7 @@ def monitor():
     novos = list(set(current_files) - set(old_files))
 
     if novos:
-        msg = "📦 *Novos arquivos adicionados:*
-" + "\n".join(URL + x for x in novos)
+        msg = "📦 *Novos arquivos adicionados:*\n" + "\n".join(URL + x for x in novos)
         send_telegram(msg)
 
     with open(CACHE_FILE, "w") as f:
